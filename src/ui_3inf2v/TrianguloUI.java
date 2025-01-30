@@ -49,6 +49,11 @@ public class TrianguloUI extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Triângulos");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
@@ -162,14 +167,53 @@ public class TrianguloUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
+    public static boolean isTriangle(double a, double b, double c) {
+        return a < b + c && b < a + c && c < a + b;
+    }
+
+    public static String typeTriangle(double a, double b, double c) {
+        if (a == b && b == c) {
+            return "EQUILÁTERO";
+        } else if (a == b || b == c || a == c) {
+            return "ISÓSCELES";
+        } else {
+            return "ESCALENO";
+        }
+    }
+
+    public static double areaTriangle(double a, double b, double c) {
+        double p = (a + b + c) / 2;
+        return Math.sqrt(p * (p - a) * (p - b) * (p - c));
+    }
+
     private void calcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcActionPerformed
         double a = Double.parseDouble(jTextField1.getText());
         double b = Double.parseDouble(jTextField2.getText());
         double c = Double.parseDouble(jTextField3.getText());
-        
-        
+
+        if (isTriangle(a, b, c)) {
+
+            tipoLabel.setText("Tipo = " + typeTriangle(a, b, c));
+            areaLabel.setText(
+                    String.format("Área = %.4f", areaTriangle(a, b, c))
+            );
+        } else {
+            tipoLabel.setText("NÃO É um triângulo!");
+            tipoLabel.setForeground(Color.CYAN);
+            areaLabel.setText("");
+        }
+
     }//GEN-LAST:event_calcActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        tipoLabel.setText("Tipo = ?");
+        tipoLabel.setForeground(Color.black);
+        areaLabel.setText("Área = ?");
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
