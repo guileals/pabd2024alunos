@@ -5,6 +5,7 @@
 package ui_3inf1v;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -178,7 +179,7 @@ public class TrianguloUI extends javax.swing.JFrame {
     public static boolean isTriangle(double a, double b, double c) {
         return a + b > c && a + c > b && b + c > a;
     }
-    
+
     public static String typeTriangle(double a, double b, double c) {
         if (a == b && b == c) {
             return "EQUILÁTERO";
@@ -188,25 +189,42 @@ public class TrianguloUI extends javax.swing.JFrame {
             return "ESCALENO";
         }
     }
-    
+
     public static double areaTriangle(double a, double b, double c) {
         double p = (a + b + c) / 2;
         return Math.sqrt(p * (p - a) * (p - b) * (p - c));
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        double a = Double.parseDouble(aTF.getText());
-        double b = Double.parseDouble(bTF.getText());
-        double c = Double.parseDouble(cTF.getText());
-        
-        if (isTriangle(a, b, c)) {
-            tipoLabel.setText("Tipo = " + typeTriangle(a, b, c));
-            areaLabel.setText(String.format("Área = %.4f", areaTriangle(a, b, c)));
+
+        if (aTF.getText().equals("")
+                || bTF.getText().equals("")
+                || cTF.getText().equals("")) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Preencha todos os lados!",
+                    "ERRO",
+                    //                JOptionPane.INFORMATION_MESSAGE
+                    //                JOptionPane.WARNING_MESSAGE
+                    JOptionPane.ERROR_MESSAGE
+            //                JOptionPane.QUESTION_MESSAGE
+            //                JOptionPane.PLAIN_MESSAGE
+            );
         } else {
-            tipoLabel.setText("NÃO É um triângulo!");
-            tipoLabel.setForeground(Color.red);
-            areaLabel.setText("");
+            double a = Double.parseDouble(aTF.getText());
+            double b = Double.parseDouble(bTF.getText());
+            double c = Double.parseDouble(cTF.getText());
+
+            if (isTriangle(a, b, c)) {
+                tipoLabel.setText("Tipo = " + typeTriangle(a, b, c));
+                areaLabel.setText(String.format("Área = %.4f", areaTriangle(a, b, c)));
+            } else {
+                tipoLabel.setText("NÃO É um triângulo!");
+                tipoLabel.setForeground(Color.red);
+                areaLabel.setText("");
+            }
         }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
