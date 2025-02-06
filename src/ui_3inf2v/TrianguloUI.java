@@ -5,6 +5,7 @@
 package ui_3inf2v;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,6 +18,7 @@ public class TrianguloUI extends javax.swing.JFrame {
      */
     public TrianguloUI() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -188,20 +190,32 @@ public class TrianguloUI extends javax.swing.JFrame {
     }
 
     private void calcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcActionPerformed
-        double a = Double.parseDouble(jTextField1.getText());
-        double b = Double.parseDouble(jTextField2.getText());
-        double c = Double.parseDouble(jTextField3.getText());
 
-        if (isTriangle(a, b, c)) {
-
-            tipoLabel.setText("Tipo = " + typeTriangle(a, b, c));
-            areaLabel.setText(
-                    String.format("Área = %.4f", areaTriangle(a, b, c))
+        if (jTextField1.getText().equals("")
+                || jTextField2.getText().equals("")
+                || jTextField3.getText().equals("")) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Preencha todos os lados!",
+                    "ERRO",
+                    JOptionPane.ERROR_MESSAGE
             );
         } else {
-            tipoLabel.setText("NÃO É um triângulo!");
-            tipoLabel.setForeground(Color.CYAN);
-            areaLabel.setText("");
+            double a = Double.parseDouble(jTextField1.getText());
+            double b = Double.parseDouble(jTextField2.getText());
+            double c = Double.parseDouble(jTextField3.getText());
+
+            if (isTriangle(a, b, c)) {
+
+                tipoLabel.setText("Tipo = " + typeTriangle(a, b, c));
+                areaLabel.setText(
+                        String.format("Área = %.4f", areaTriangle(a, b, c))
+                );
+            } else {
+                tipoLabel.setText("NÃO É um triângulo!");
+                tipoLabel.setForeground(Color.CYAN);
+                areaLabel.setText("");
+            }
         }
 
     }//GEN-LAST:event_calcActionPerformed
