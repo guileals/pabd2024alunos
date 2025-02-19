@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -99,6 +101,34 @@ public class CustomerDAO {
         }
 
         st.close();
+    }
+    
+    public List<Customer> getCustomers() throws SQLException {
+        List<Customer> lista = 
+                new ArrayList<Customer>();
+        
+        Statement st = con.createStatement();
+
+        String query = "select * from customer"
+                + " order by customer_id desc";
+
+        ResultSet rs = st.executeQuery(query);
+        
+        while (rs.next()) {
+            lista.add(new Customer(
+                    rs.getInt(1),
+                    rs.getInt(2),
+                    rs.getString(3),
+                    rs.getString(4),
+                    rs.getString(5),
+                    rs.getInt(6),
+                    rs.getInt(7),
+                    rs.getTimestamp(8),
+                    rs.getTimestamp(9)
+            ));
+        }
+        
+        return lista;
     }
 
 }
