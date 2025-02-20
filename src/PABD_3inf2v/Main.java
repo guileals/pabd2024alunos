@@ -24,7 +24,8 @@ public class Main {
 //        dao.insertCustomer(c);
 //        dao.updateCustomer(615);
 //        dao.deleteCustomer(612);
-        dao.showCustomers();
+//        dao.showCustomers();
+        System.out.println(dao.getCustomers());
 
     }
 
